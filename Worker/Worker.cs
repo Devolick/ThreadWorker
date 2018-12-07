@@ -26,6 +26,11 @@ namespace ThreadWorker
         {
             get => (int)stopwatch.ElapsedMilliseconds;
         }
+        public bool IsRunning
+        {
+            get;
+            private set;
+        }
         public bool Complete
         {
             get;
@@ -108,6 +113,7 @@ namespace ThreadWorker
             {
                 Complete = false;
                 stopwatch.Restart();
+                IsRunning = true;
 
                 int count = 0;
                 DateTime started;
@@ -147,8 +153,8 @@ namespace ThreadWorker
                     token.ProgressIndex = 0;
                     token.ProgressStep = 0;
                 }
-
                 stopwatch.Stop();
+                IsRunning = false;
                 Complete = true;
                 Finish?.Invoke(this, new WorkerArgs {
                     Token = token
@@ -157,6 +163,7 @@ namespace ThreadWorker
             catch (Exception ex)
             {
                 stopwatch.Stop();
+                IsRunning = false;
                 if (!aborted)
                     Exception?.Invoke(this, new WorkerExceptionArgs
                     {
@@ -166,7 +173,7 @@ namespace ThreadWorker
             }
             finally
             {
-                if(aborted)
+                if (aborted)
                     Abort?.Invoke(this, new WorkerArgs
                     {
                         Token = token
