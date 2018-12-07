@@ -10,7 +10,10 @@ namespace ThreadWorker.Code
         {
             get => token.TaskIndex;
         }
-
+        public Context Context
+        {
+            get => token.Context;
+        }
 
         private readonly Token token;
 
