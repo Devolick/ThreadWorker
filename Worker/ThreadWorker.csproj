@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Dzmitry Dym</Authors>
+    <Description>Analogue BackgroundWorker allows you to calculate each task and stop execution at any level.</Description>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Devolick/ThreadWorker/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Devolick/ThreadWorker/wiki</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/Devolick/Docs/tree/master/Icons/threadworker.ico</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Devolick/ThreadWorker</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Thread, Worker, Task, Progress</PackageTags>
+  </PropertyGroup>
+
+</Project>
