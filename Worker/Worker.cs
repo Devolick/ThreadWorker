@@ -36,7 +36,11 @@ namespace ThreadWorker
             get;
             private set;
         }
-        public Token Token { get; set; }
+        public Token Token
+        {
+            get;
+            set;
+        }
 
         private Stopwatch stopwatch;
         private List<WorkContainer> containers;
@@ -119,6 +123,7 @@ namespace ThreadWorker
                 DateTime started;
                 foreach (WorkContainer container in containers)
                 {
+                    Token.TaskIndex = count;
                     started = DateTime.Now;
                     int startTotalProgress = (int)(100 * ((float)count * containers.Count));
                     Next?.Invoke(this, new WorkerStatusArgs
@@ -138,9 +143,9 @@ namespace ThreadWorker
                     });
                     PauseCycle();
 
-                    Token.JobIndex = count;
+                    Token.TaskIndex = count;
                     ++count;
-                    container.Action?.Invoke(new WorkManager(this), Token);
+                    container.Action?.Invoke(new WorkManager(this), new TokenManager(Token));
 
                     Status?.Invoke(this, new WorkerStatusArgs
                     {
@@ -150,8 +155,6 @@ namespace ThreadWorker
                         JobProgress = 100,
                         Token = Token
                     });
-                    Token.ProgressIndex = 0;
-                    Token.ProgressStep = 0;
                 }
                 stopwatch.Stop();
                 IsRunning = false;

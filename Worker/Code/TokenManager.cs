@@ -6,6 +6,12 @@ namespace ThreadWorker.Code
 {
     public class TokenManager
     {
+        public int TaskIndex
+        {
+            get => token.TaskIndex;
+        }
+
+
         private readonly Token token;
 
         private TokenManager() { }
