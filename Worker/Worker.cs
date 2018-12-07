@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -171,7 +172,9 @@ namespace ThreadWorker
                 if (!aborted)
                     Exception?.Invoke(this, new WorkerExceptionArgs
                     {
-                        Exception = ex,
+                        Exception = new Exception(
+                            $"Exception at token:" +
+                            $"{JsonConvert.SerializeObject(Token)}",ex),
                         Token = Token
                     });
             }

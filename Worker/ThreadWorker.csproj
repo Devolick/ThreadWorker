@@ -12,4 +12,8 @@
     <PackageTags>Thread, Worker, Task, Progress</PackageTags>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
 </Project>
