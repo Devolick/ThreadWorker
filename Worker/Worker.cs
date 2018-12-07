@@ -36,8 +36,8 @@ namespace ThreadWorker
             get;
             private set;
         }
+        public Token Token { get; set; }
 
-        private Token token;
         private Stopwatch stopwatch;
         private List<WorkContainer> jobs;
         private Thread thread;
@@ -45,7 +45,7 @@ namespace ThreadWorker
 
         public Worker()
         {
-            token = new Token();
+            Token = new Token();
             jobs = new List<WorkContainer>();
             stopwatch = new Stopwatch();
             thread = new Thread(DoWork)
@@ -57,7 +57,7 @@ namespace ThreadWorker
         public Worker(Token token)
             : this()
         {
-            this.token = token;
+            this.Token = token;
         }
 
         public void Jobs(params WorkContainer[] containers)
@@ -71,7 +71,7 @@ namespace ThreadWorker
             if (!thread.IsAlive)
                 thread.Start();
             Start?.Invoke(this, new WorkerArgs {
-                Token = token
+                Token = Token
             });
         }
 
@@ -92,7 +92,7 @@ namespace ThreadWorker
         {
             stopwatch.Stop();
             Wait?.Invoke(this, new WorkerArgs {
-                Token = token
+                Token = Token
             });
             while (Pause) ;
             stopwatch.Start();
@@ -124,40 +124,40 @@ namespace ThreadWorker
                     Next?.Invoke(this, new WorkerStatusArgs
                     {
                         Title = container.Title,
-                        Started = started,
+                        DateTime = started,
                         TotalProgress = startTotalProgress,
                         JobProgress = 0
                     });
                     Status?.Invoke(this, new WorkerStatusArgs
                     {
                         Title = container.Title,
-                        Started = started,
+                        DateTime = started,
                         TotalProgress = startTotalProgress,
                         JobProgress = 0,
-                        Token = token
+                        Token = Token
                     });
                     PauseCycle();
 
-                    token.JobIndex = count;
+                    Token.JobIndex = count;
                     ++count;
-                    container.Action?.Invoke(new WorkManager(this), token);
+                    container.Action?.Invoke(new WorkManager(this), Token);
 
                     Status?.Invoke(this, new WorkerStatusArgs
                     {
                         Title = container.Title,
-                        Started = started,
+                        DateTime = DateTime.Now,
                         TotalProgress = (int)(100 * ((float)count * jobs.Count)),
                         JobProgress = 100,
-                        Token = token
+                        Token = Token
                     });
-                    token.ProgressIndex = 0;
-                    token.ProgressStep = 0;
+                    Token.ProgressIndex = 0;
+                    Token.ProgressStep = 0;
                 }
                 stopwatch.Stop();
                 IsRunning = false;
                 Complete = true;
                 Finish?.Invoke(this, new WorkerArgs {
-                    Token = token
+                    Token = Token
                 });
             }
             catch (Exception ex)
@@ -168,7 +168,7 @@ namespace ThreadWorker
                     Exception?.Invoke(this, new WorkerExceptionArgs
                     {
                         Exception = ex,
-                        Token = token
+                        Token = Token
                     });
             }
             finally
@@ -176,8 +176,9 @@ namespace ThreadWorker
                 if (aborted)
                     Abort?.Invoke(this, new WorkerArgs
                     {
-                        Token = token
+                        Token = Token
                     });
+                Token = new Token();
             }
         }
     }
