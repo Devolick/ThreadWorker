@@ -131,7 +131,8 @@ namespace ThreadWorker
                         Title = container.Title,
                         DateTime = started,
                         TotalProgress = startTotalProgress,
-                        JobProgress = 0
+                        JobProgress = 0,
+                        Token = Token
                     });
                     Status?.Invoke(this, new WorkerStatusArgs
                     {
