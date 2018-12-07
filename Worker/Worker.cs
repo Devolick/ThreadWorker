@@ -39,14 +39,14 @@ namespace ThreadWorker
         public Token Token { get; set; }
 
         private Stopwatch stopwatch;
-        private List<WorkContainer> jobs;
+        private List<WorkContainer> containers;
         private Thread thread;
         private bool aborted;
 
         public Worker()
         {
             Token = new Token();
-            jobs = new List<WorkContainer>();
+            containers = new List<WorkContainer>();
             stopwatch = new Stopwatch();
             thread = new Thread(DoWork)
             {
@@ -62,7 +62,7 @@ namespace ThreadWorker
 
         public void Jobs(params WorkContainer[] containers)
         {
-            jobs.AddRange(containers);
+            this.containers.AddRange(containers);
         }
 
         public void Run()
@@ -102,7 +102,7 @@ namespace ThreadWorker
         {
             Status?.Invoke(this, new WorkerStatusArgs
             {
-                TotalProgress = (int)(100 * (jobProgress * (1f / jobs.Count))),
+                TotalProgress = (int)(100 * (jobProgress * (1f / containers.Count))),
                 JobProgress = (int)(100 * jobProgress)
             });
         }
@@ -117,10 +117,10 @@ namespace ThreadWorker
 
                 int count = 0;
                 DateTime started;
-                foreach (WorkContainer container in jobs)
+                foreach (WorkContainer container in containers)
                 {
                     started = DateTime.Now;
-                    int startTotalProgress = (int)(100 * ((float)count * jobs.Count));
+                    int startTotalProgress = (int)(100 * ((float)count * containers.Count));
                     Next?.Invoke(this, new WorkerStatusArgs
                     {
                         Title = container.Title,
@@ -146,7 +146,7 @@ namespace ThreadWorker
                     {
                         Title = container.Title,
                         DateTime = DateTime.Now,
-                        TotalProgress = (int)(100 * ((float)count * jobs.Count)),
+                        TotalProgress = (int)(100 * ((float)count * containers.Count)),
                         JobProgress = 100,
                         Token = Token
                     });
