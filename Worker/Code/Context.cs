@@ -6,11 +6,11 @@ namespace ThreadWorker.Code
 {
     public class Context
     {
-        private LinkedList<KeyValuePair<string, dynamic>> values;
+        private LinkedList<KeyValuePair<string, object>> values;
 
         public Context()
         {
-            values = new LinkedList<KeyValuePair<string, dynamic>>();
+            values = new LinkedList<KeyValuePair<string, object>>();
         }
 
         /// <summary>
@@ -28,19 +28,19 @@ namespace ThreadWorker.Code
         /// </summary>
         /// <param name="pageNameOf">Use nameof(pageType) to find page data.</param>
         /// <param name="value">Transfer object data for current page.</param>
-        public void AppendValue(string pageNameOf, dynamic value)
+        public void AppendValue(string pageNameOf, object value)
         {
             if (values.Any(a => a.Key == pageNameOf))
                 throw new DuplicateWaitObjectException("This page is already in the list.");
 
-            values.AddLast(new KeyValuePair<string, dynamic>(pageNameOf, value));
+            values.AddLast(new KeyValuePair<string, object>(pageNameOf, value));
         }
 
         public void RemoveValue(string pageNameOf)
         {
             if (values.Any(a => a.Key == pageNameOf))
             {
-                KeyValuePair<string, dynamic> value =
+                KeyValuePair<string, object> value =
                     values.First(f => f.Key == pageNameOf);
                 values.Remove(value);
             }
