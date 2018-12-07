@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ThreadWorker.Code
+﻿namespace ThreadWorker.Code
 {
     public class TokenManager
     {
