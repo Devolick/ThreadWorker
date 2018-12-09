@@ -1,0 +1,19 @@
+﻿<Window x:Class="Example.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Example"
+        mc:Ignorable="d" BorderThickness="1" BorderBrush="CornflowerBlue"
+        Title="MainWindow" Height="280" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True">
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Button FontSize="28" Foreground="CornflowerBlue"
+                Click="Work_Click" x:Name="workButton">Work!</Button>
+        <Button FontSize="28" Foreground="CornflowerBlue"
+                Click="Pause_Click" x:Name="pauseButton">Pause!</Button>
+        <ProgressBar Width="256" Height="32" x:Name="workProgress" Maximum="100" Minimum="0"/>
+        <Label FontSize="18" Foreground="CornflowerBlue" x:Name="taskResult"/>
+        <Label FontSize="18" Foreground="CornflowerBlue" Content="Task:0%" x:Name="taskProgress" />
+        <Label FontSize="18" Foreground="CornflowerBlue" Content="Total:0%" x:Name="totalProgress" />
+    </StackPanel>
+</Window>

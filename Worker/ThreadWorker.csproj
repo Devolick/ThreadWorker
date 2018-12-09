@@ -6,11 +6,14 @@
     <Description>Analogue BackgroundWorker allows you to calculate each task and stop execution at any level.</Description>
     <PackageLicenseUrl>https://raw.githubusercontent.com/Devolick/ThreadWorker/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Devolick/ThreadWorker/wiki</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/Devolick/Docs/tree/master/Icons/threadworker.ico</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Devolick/Docs/master/Icons/threadworker.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/Devolick/ThreadWorker</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Thread, Worker, Task, Progress</PackageTags>
     <ApplicationIcon>threadworker.ico</ApplicationIcon>
+    <Version>1.0.1</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>ThreadWorker.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
