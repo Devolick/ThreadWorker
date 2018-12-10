@@ -21,10 +21,6 @@ namespace ThreadWorker.Code
         {
             get => worker.Complete;
         }
-        public Token Token
-        {
-            get => worker.Token;
-        }
 
         private Worker worker;
 
