@@ -23,9 +23,9 @@ namespace ThreadWorker
             get;
             set;
         }
-        public int Elapsed
+        public double Elapsed
         {
-            get => (int)stopwatch.ElapsedMilliseconds;
+            get => stopwatch.ElapsedMilliseconds;
         }
         public bool IsRunning
         {

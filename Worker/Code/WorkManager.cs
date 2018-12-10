@@ -4,6 +4,28 @@ namespace ThreadWorker.Code
 {
     public class WorkManager
     {
+        public bool Pause
+        {
+            get;
+            set;
+        }
+        public TimeSpan Elapsed
+        {
+            get => TimeSpan.FromMilliseconds(worker.Elapsed);
+        }
+        public bool IsRunning
+        {
+            get => worker.IsRunning;
+        }
+        public bool Complete
+        {
+            get => worker.Complete;
+        }
+        public Token Token
+        {
+            get => worker.Token;
+        }
+
         private Worker worker;
 
         internal WorkManager(Worker worker)
