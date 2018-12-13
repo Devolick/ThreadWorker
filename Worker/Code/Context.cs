@@ -4,59 +4,61 @@ using System.Linq;
 
 namespace ThreadWorker.Code
 {
+    /// <summary>
+    /// Class content entries.
+    /// </summary>
     public class Context
     {
         private LinkedList<KeyValuePair<string, object>> values;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public Context()
         {
             values = new LinkedList<KeyValuePair<string, object>>();
         }
 
         /// <summary>
-        /// Check page value exist.
+        /// Find out if there is an entry with the specified name. Use the nameof(workName) operator.
         /// </summary>
-        /// <param name="pageNameOf">Use nameof(pageType) to find page data.</param>
-        /// <returns>Returns true if page exist.</returns>
-        public bool HasValue(string pageNameOf)
+        public bool HasValue(string workName)
         {
-            return values.Any(a => a.Key == pageNameOf);
+            return values.Any(a => a.Key == workName);
         }
 
         /// <summary>
-        /// Add page transfer data.
+        /// Adds task to the list of values. Use the nameof(workName) operator.
         /// </summary>
-        /// <param name="pageNameOf">Use nameof(pageType) to find page data.</param>
-        /// <param name="value">Transfer object data for current page.</param>
-        public void AppendValue(string pageNameOf, object value)
+        public void AppendValue(string workName, object value)
         {
-            if (values.Any(a => a.Key == pageNameOf))
+            if (values.Any(a => a.Key == workName))
                 throw new DuplicateWaitObjectException("This page is already in the list.");
 
-            values.AddLast(new KeyValuePair<string, object>(pageNameOf, value));
+            values.AddLast(new KeyValuePair<string, object>(workName, value));
         }
 
-        public void RemoveValue(string pageNameOf)
+        /// <summary>
+        /// Removes a task from the list of values. Use the nameof(workName) operator.
+        /// </summary>
+        public void RemoveValue(string workName)
         {
-            if (values.Any(a => a.Key == pageNameOf))
+            if (values.Any(a => a.Key == workName))
             {
                 KeyValuePair<string, object> value =
-                    values.First(f => f.Key == pageNameOf);
+                    values.First(f => f.Key == workName);
                 values.Remove(value);
             }
         }
 
         /// <summary>
-        /// Get page transfer data.
+        /// Gets a task from a list of values. Use the nameof(workName) operator.
         /// </summary>
-        /// <typeparam name="T">Explicit current data to T type.</typeparam>
-        /// <param name="pageNameOf">Use nameof(pageType) to find page data.</param>
-        /// <returns>Returns page transfer data between pages.</returns>
-        public T GetValue<T>(string pageNameOf)
+        public T GetValue<T>(string workName)
             where T : class
         {
-            if (values.Any(a => a.Key == pageNameOf))
-                return (T)values.First(f => f.Key == pageNameOf).Value;
+            if (values.Any(a => a.Key == workName))
+                return (T)values.First(f => f.Key == workName).Value;
 
             return null;
         }

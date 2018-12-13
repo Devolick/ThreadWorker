@@ -7,50 +7,92 @@ using ThreadWorker.Code;
 
 namespace ThreadWorker
 {
+    /// <summary>
+    /// A class for running task containers.
+    /// </summary>
     public sealed class Worker
     {
+        /// <summary>
+        /// Called upon completion.
+        /// </summary>
         public event EventHandler<WorkerArgs> Finish;
+        /// <summary>
+        /// Called before a new task. Gives similar information as Status.
+        /// </summary>
         public event EventHandler<WorkerStatusArgs> Next;
+        /// <summary>
+        /// Called during the execution of a task, for information.
+        /// </summary>
         public event EventHandler<WorkerStatusArgs> Status;
+        /// <summary>
+        /// Called when an error occurs in the thread.
+        /// </summary>
         public event EventHandler<WorkerExceptionArgs> Exception;
+        /// <summary>
+        /// Called during a pause.
+        /// </summary>
         public event EventHandler<WorkerArgs> Wait;
+        /// <summary>
+        /// Called at startup.
+        /// </summary>
         public event EventHandler<WorkerArgs> Start;
+        /// <summary>
+        /// Called when stopped.
+        /// </summary>
         public event EventHandler<WorkerArgs> Abort;
 
+        /// <summary>
+        /// Loops the thread and keeps it hanging. Through method PauseCycle.
+        /// </summary>
         public bool Pause
         {
             get;
             set;
         }
-        public double Elapsed
+        /// <summary>
+        /// Returns the elapsed time in milliseconds.
+        /// </summary>
+        public TimeSpan Elapsed
         {
-            get => stopwatch.ElapsedMilliseconds;
+            get => TimeSpan.FromMilliseconds(stopwatch.ElapsedMilliseconds);
         }
+        /// <summary>
+        /// Indicates if the thread is running.
+        /// </summary>
         public bool IsRunning
         {
             get;
             private set;
         }
+        /// <summary>
+        /// Indicates if the thread has finished running.
+        /// </summary>
         public bool Complete
         {
             get;
             private set;
         }
+        /// <summary>
+        /// Token for recording between tasks.
+        /// </summary>
         public Token Token
         {
             get;
             set;
         }
 
-        private Stopwatch stopwatch;
+        private readonly Stopwatch stopwatch;
         private WorkContainer currentContainer;
         private DateTime currentContainerDateTime;
-        private List<WorkContainer> containers;
+        private readonly List<WorkContainer> containers;
         private Thread thread;
         private bool aborted;
         private int totalProgress;
         private int workProgress;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public Worker()
         {
             Token = new Token();
@@ -58,17 +100,28 @@ namespace ThreadWorker
             stopwatch = new Stopwatch();
         }
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="token">Token for recording between tasks.</param>
         public Worker(Token token)
             : this()
         {
             this.Token = token;
         }
 
+        /// <summary>
+        /// Pass containers with a name and a task.
+        /// </summary>
+        /// <param name="containers"></param>
         public void Works(params WorkContainer[] containers)
         {
             this.containers.AddRange(containers);
         }
 
+        /// <summary>
+        /// Starts container execution.
+        /// </summary>
         public void Run()
         {
             IsRunning = false;
@@ -88,6 +141,9 @@ namespace ThreadWorker
             });
         }
 
+        /// <summary>
+        /// Stops the execution of containers.
+        /// </summary>
         public void Stop()
         {
             aborted = true;
@@ -95,6 +151,9 @@ namespace ThreadWorker
                 thread.Abort();
         }
 
+        /// <summary>
+        /// If the thread is running, you can wait for it to complete. Thread.Join()
+        /// </summary>
         public void Join()
         {
             if (thread.IsAlive)
@@ -109,9 +168,9 @@ namespace ThreadWorker
                 Wait?.Invoke(this, new WorkerWaitArgs
                 {
                     TotalProgress = totalProgress,
-                    WorkProgress = workProgress,
+                    TaskProgress = workProgress,
                     Title = currentContainer.Title,
-                    DateTime = currentContainerDateTime,
+                    Started = currentContainerDateTime,
                     Token = Token
                 });
             while (Pause) ;
@@ -119,9 +178,9 @@ namespace ThreadWorker
                 Wait?.Invoke(this, new WorkerWaitArgs
                 {
                     TotalProgress = totalProgress,
-                    WorkProgress = workProgress,
+                    TaskProgress = workProgress,
                     Title = currentContainer.Title,
-                    DateTime = currentContainerDateTime,
+                    Started = currentContainerDateTime,
                     Token = Token
                 });
             stopwatch.Start();
@@ -135,9 +194,9 @@ namespace ThreadWorker
             Status?.Invoke(this, new WorkerStatusArgs
             {
                 TotalProgress = totalProgress,
-                WorkProgress = workProgress,
+                TaskProgress = workProgress,
                 Title = currentContainer.Title,
-                DateTime = currentContainerDateTime,
+                Started = currentContainerDateTime,
                 Token = Token
             });
         }
@@ -162,17 +221,17 @@ namespace ThreadWorker
                         Next?.Invoke(this, new WorkerStatusArgs
                         {
                             Title = container.Title,
-                            DateTime = currentContainerDateTime,
+                            Started = currentContainerDateTime,
                             TotalProgress = totalProgress,
-                            WorkProgress = workProgress,
+                            TaskProgress = workProgress,
                             Token = Token
                         });
                         Status?.Invoke(this, new WorkerStatusArgs
                         {
                             Title = container.Title,
-                            DateTime = currentContainerDateTime,
+                            Started = currentContainerDateTime,
                             TotalProgress = totalProgress,
-                            WorkProgress = workProgress,
+                            TaskProgress = workProgress,
                             Token = Token
                         });
                         PauseCycle();
@@ -183,9 +242,9 @@ namespace ThreadWorker
                         Status?.Invoke(this, new WorkerStatusArgs
                         {
                             Title = container.Title,
-                            DateTime = DateTime.Now,
+                            Started = DateTime.Now,
                             TotalProgress = totalProgress,
-                            WorkProgress = workProgress,
+                            TaskProgress = workProgress,
                             Token = Token
                         });
 

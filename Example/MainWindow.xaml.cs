@@ -65,7 +65,7 @@ namespace Example
         {
             Dispatcher.Invoke(() =>
             {
-                taskProgress.Content = $"{e.Title}:{e.WorkProgress}%";
+                taskProgress.Content = $"{e.Title}:{e.TaskProgress}%";
                 totalProgress.Content = $"Total:{e.TotalProgress}%";
                 
                 workProgress.Value = e.TotalProgress;
@@ -76,7 +76,7 @@ namespace Example
         {
             Dispatcher.Invoke(() =>
             {
-                taskProgress.Content = $"{e.Title}:{e.WorkProgress}%";
+                taskProgress.Content = $"{e.Title}:{e.TaskProgress}%";
                 totalProgress.Content = $"Total:{e.TotalProgress}%";
             });
         }

@@ -2,38 +2,51 @@
 
 namespace ThreadWorker.Code
 {
+    /// <summary>
+    /// Worker sender shell.
+    /// </summary>
     public class WorkManager
     {
-        public bool Pause
-        {
-            get;
-            set;
-        }
+        /// <summary>
+        /// Returns the elapsed time in milliseconds.
+        /// </summary>
         public TimeSpan Elapsed
         {
-            get => TimeSpan.FromMilliseconds(worker.Elapsed);
+            get => worker.Elapsed;
         }
+        /// <summary>
+        /// Indicates if the thread is running.
+        /// </summary>
         public bool IsRunning
         {
             get => worker.IsRunning;
         }
+        /// <summary>
+        /// Indicates if the thread has finished running.
+        /// </summary>
         public bool Complete
         {
             get => worker.Complete;
         }
 
-        private Worker worker;
+        private readonly Worker worker;
 
         internal WorkManager(Worker worker)
         {
             this.worker = worker;
         }
 
+        /// <summary>
+        /// Loops task when pause is called.
+        /// </summary>
         public void PauseCycle()
         {
             worker.PauseCycle();
         }
 
+        /// <summary>
+        /// Used to calculate the progress of the current task.
+        /// </summary>
         public void ChangeProgress(uint step, uint count)
         {
             if (count == 0)

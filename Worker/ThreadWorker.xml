@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ThreadWorker</name>
+    </assembly>
+    <members>
+        <member name="T:ThreadWorker.Arguments.WorkerArgs">
+            <summary>
+            Arg
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Arguments.WorkerArgs.Token">
+            <summary>
+            Transfer data between tasks.
+            </summary>
+        </member>
+        <member name="T:ThreadWorker.Arguments.WorkerExceptionArgs">
+            <summary>
+            Arg
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Arguments.WorkerExceptionArgs.Exception">
+            <summary>
+            Represent exception for worker thread.
+            </summary>
+        </member>
+        <member name="T:ThreadWorker.Arguments.WorkerStatusArgs">
+            <summary>
+            Arg
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Arguments.WorkerStatusArgs.TaskProgress">
+            <summary>
+            Current task progress.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Arguments.WorkerStatusArgs.TotalProgress">
+            <summary>
+            Total progress for all tasks.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Arguments.WorkerStatusArgs.Title">
+            <summary>
+            Title from container.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Arguments.WorkerStatusArgs.Started">
+            <summary>
+            When task had start.
+            </summary>
+        </member>
+        <member name="T:ThreadWorker.Arguments.WorkerWaitArgs">
+            <summary>
+            Arg
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Arguments.WorkerWaitArgs.Pause">
+            <summary>
+            True if tasks had stoped.
+            </summary>
+        </member>
+        <member name="T:ThreadWorker.Code.Context">
+            <summary>
+            Class content entries.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.Context.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.Context.HasValue(System.String)">
+            <summary>
+            Find out if there is an entry with the specified name. Use the nameof(workName) operator.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.Context.AppendValue(System.String,System.Object)">
+            <summary>
+            Adds task to the list of values. Use the nameof(workName) operator.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.Context.RemoveValue(System.String)">
+            <summary>
+            Removes a task from the list of values. Use the nameof(workName) operator.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.Context.GetValue``1(System.String)">
+            <summary>
+            Gets a task from a list of values. Use the nameof(workName) operator.
+            </summary>
+        </member>
+        <member name="T:ThreadWorker.Code.Token">
+            <summary>
+            Class for transfer between tasks. Used as a notebook in case of an error.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.Token.TaskIndex">
+            <summary>
+            Indicates the index of the current task.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.Token.Context">
+            <summary>
+            Flexible class for data entry.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.Token.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="T:ThreadWorker.Code.TokenManager">
+            <summary>
+            Shell to transfer data token.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.TokenManager.TaskIndex">
+            <summary>
+            Indicates the index of the current task.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.TokenManager.Context">
+            <summary>
+            Flexible class for data entry.
+            </summary>
+        </member>
+        <member name="T:ThreadWorker.Code.WorkContainer">
+            <summary>
+            Shell to transfer the title and task.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.WorkContainer.Title">
+            <summary>
+            The title of the task.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.WorkContainer.Action">
+            <summary>
+            Delegate with the body of the task.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.WorkContainer.#ctor(System.String,System.Action{ThreadWorker.Code.WorkManager,ThreadWorker.Code.TokenManager})">
+            <summary>
+            Ctor
+            </summary>
+            <param name="title">The title of the task.</param>
+            <param name="action">Delegate with the body of the task.</param>
+        </member>
+        <member name="T:ThreadWorker.Code.WorkManager">
+            <summary>
+            Worker sender shell.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.WorkManager.Elapsed">
+            <summary>
+            Returns the elapsed time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.WorkManager.IsRunning">
+            <summary>
+            Indicates if the thread is running.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.WorkManager.Complete">
+            <summary>
+            Indicates if the thread has finished running.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.WorkManager.PauseCycle">
+            <summary>
+            Loops task when pause is called.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.WorkManager.ChangeProgress(System.UInt32,System.UInt32)">
+            <summary>
+            Used to calculate the progress of the current task.
+            </summary>
+        </member>
+        <member name="T:ThreadWorker.Worker">
+            <summary>
+            A class for running task containers.
+            </summary>
+        </member>
+        <member name="E:ThreadWorker.Worker.Finish">
+            <summary>
+            Called upon completion.
+            </summary>
+        </member>
+        <member name="E:ThreadWorker.Worker.Next">
+            <summary>
+            Called before a new task. Gives similar information as Status.
+            </summary>
+        </member>
+        <member name="E:ThreadWorker.Worker.Status">
+            <summary>
+            Called during the execution of a task, for information.
+            </summary>
+        </member>
+        <member name="E:ThreadWorker.Worker.Exception">
+            <summary>
+            Called when an error occurs in the thread.
+            </summary>
+        </member>
+        <member name="E:ThreadWorker.Worker.Wait">
+            <summary>
+            Called during a pause.
+            </summary>
+        </member>
+        <member name="E:ThreadWorker.Worker.Start">
+            <summary>
+            Called at startup.
+            </summary>
+        </member>
+        <member name="E:ThreadWorker.Worker.Abort">
+            <summary>
+            Called when stopped.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Worker.Pause">
+            <summary>
+            Loops the thread and keeps it hanging. Through method PauseCycle.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Worker.Elapsed">
+            <summary>
+            Returns the elapsed time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Worker.IsRunning">
+            <summary>
+            Indicates if the thread is running.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Worker.Complete">
+            <summary>
+            Indicates if the thread has finished running.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Worker.Token">
+            <summary>
+            Token for recording between tasks.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Worker.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Worker.#ctor(ThreadWorker.Code.Token)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="token">Token for recording between tasks.</param>
+        </member>
+        <member name="M:ThreadWorker.Worker.Works(ThreadWorker.Code.WorkContainer[])">
+            <summary>
+            Pass containers with a name and a task.
+            </summary>
+            <param name="containers"></param>
+        </member>
+        <member name="M:ThreadWorker.Worker.Run">
+            <summary>
+            Starts container execution.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Worker.Stop">
+            <summary>
+            Stops the execution of containers.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Worker.Join">
+            <summary>
+            If the thread is running, you can wait for it to complete. Thread.Join()
+            </summary>
+        </member>
+    </members>
+</doc>
