@@ -9,10 +9,6 @@ namespace ThreadWorker.Code
     public sealed class Token
     {
         /// <summary>
-        /// Indicates the index of the current task.
-        /// </summary>
-        public int TaskIndex { get; set; }
-        /// <summary>
         /// Flexible class for data entry.
         /// </summary>
         public Context Context { get; set; }

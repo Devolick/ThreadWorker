@@ -89,12 +89,14 @@ namespace ThreadWorker
         private bool aborted;
         private int totalProgress;
         private int workProgress;
+        private int taskIndex;
 
         /// <summary>
         /// Ctor
         /// </summary>
         public Worker()
         {
+            taskIndex = 0;
             Token = new Token();
             containers = new List<WorkContainer>();
             stopwatch = new Stopwatch();
@@ -124,6 +126,7 @@ namespace ThreadWorker
         /// </summary>
         public void Run()
         {
+            taskIndex = 0;
             IsRunning = false;
             Complete = false;
             Pause = false;
@@ -188,7 +191,7 @@ namespace ThreadWorker
 
         internal void ChangeProgress(double progress)
         {
-            int total = (int)(100 * ((float)Token.TaskIndex / containers.Count));
+            int total = (int)(100 * ((float)taskIndex / containers.Count));
             totalProgress = total + (int)(100 * (progress * (1f / containers.Count)));
             workProgress = (int)(100 * progress);
             Status?.Invoke(this, new WorkerStatusArgs
@@ -214,9 +217,9 @@ namespace ThreadWorker
                     foreach (WorkContainer container in containers)
                     {
                         currentContainer = container;
-                        Token.TaskIndex = count;
+                        taskIndex = count;
                         currentContainerDateTime = DateTime.Now;
-                        totalProgress = (int)(100 * ((float)Token.TaskIndex / containers.Count));
+                        totalProgress = (int)(100 * ((float)taskIndex / containers.Count));
                         workProgress = 0;
                         Next?.Invoke(this, new WorkerStatusArgs
                         {
@@ -237,7 +240,7 @@ namespace ThreadWorker
                         PauseCycle();
                         container.Action?.Invoke(new WorkManager(this), new TokenManager(Token));
 
-                        totalProgress = (int)(100 * ((float)(Token.TaskIndex + 1) / containers.Count));
+                        totalProgress = (int)(100 * ((float)(taskIndex + 1) / containers.Count));
                         workProgress = 100;
                         Status?.Invoke(this, new WorkerStatusArgs
                         {
@@ -267,7 +270,7 @@ namespace ThreadWorker
                     Exception?.Invoke(this, new WorkerExceptionArgs
                     {
                         Exception = new Exception(
-                            $"Exception at token index:{Token.TaskIndex}",ex),
+                            $"Exception at token index:{taskIndex}",ex),
                         Token = Token
                     });
             }

@@ -6,13 +6,6 @@
     public class TokenManager
     {
         /// <summary>
-        /// Indicates the index of the current task.
-        /// </summary>
-        public int TaskIndex
-        {
-            get => token.TaskIndex;
-        }
-        /// <summary>
         /// Flexible class for data entry.
         /// </summary>
         public Context Context
