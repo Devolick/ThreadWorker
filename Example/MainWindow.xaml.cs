@@ -89,7 +89,7 @@ namespace Example
             });
         }
 
-        private void Job1(WorkManager workManager, TokenManager tokenManager)
+        private void Job1(WorkManager workManager)
         {
             for (uint i = 0; i < 10; i++)
             {
@@ -100,7 +100,7 @@ namespace Example
 
             Thread.Sleep(2000);
         }
-        private void Job2(WorkManager workManager, TokenManager tokenManager)
+        private void Job2(WorkManager workManager)
         {
             for (uint i = 0; i < 10; i++)
             {
@@ -110,7 +110,7 @@ namespace Example
             }
             Thread.Sleep(2000);
         }
-        private void Job3(WorkManager workManager, TokenManager tokenManager)
+        private void Job3(WorkManager workManager)
         {
             for (uint i = 0; i < 10; i++)
             {

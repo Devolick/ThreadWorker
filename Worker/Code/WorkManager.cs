@@ -28,6 +28,13 @@ namespace ThreadWorker.Code
         {
             get => worker.Complete;
         }
+        /// <summary>
+        /// Flexible class for data entry.
+        /// </summary>
+        public Token Token
+        {
+            get => worker.Token;
+        }
 
         private readonly Worker worker;
 

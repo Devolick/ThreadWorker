@@ -8,9 +8,9 @@
         /// <summary>
         /// Flexible class for data entry.
         /// </summary>
-        public Context Context
+        public Token Token
         {
-            get => token.Context;
+            get => token;
         }
 
         private readonly Token token;

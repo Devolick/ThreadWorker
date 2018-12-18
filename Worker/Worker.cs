@@ -238,7 +238,7 @@ namespace ThreadWorker
                             Token = Token
                         });
                         PauseCycle();
-                        container.Action?.Invoke(new WorkManager(this), new TokenManager(Token));
+                        container.Action?.Invoke(new WorkManager(this));
 
                         totalProgress = (int)(100 * ((float)(taskIndex + 1) / containers.Count));
                         workProgress = 100;

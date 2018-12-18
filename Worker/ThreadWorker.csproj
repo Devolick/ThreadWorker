@@ -11,7 +11,7 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Thread, Worker, Task, Progress</PackageTags>
     <ApplicationIcon>threadworker.ico</ApplicationIcon>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>ThreadWorker.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
@@ -19,5 +19,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>F:\Development\C#\Standard\ThreadWorker\ThreadWorker\Worker\ThreadWorker.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Code\Context.cs" />
+    <Compile Remove="Code\TokenManager.cs" />
+  </ItemGroup>
 
 </Project>

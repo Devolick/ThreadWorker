@@ -14,7 +14,7 @@ namespace ThreadWorker.Code
         /// <summary>
         /// Delegate with the body of the task.
         /// </summary>
-        public Action<WorkManager, TokenManager> Action { get; set; }
+        public Action<WorkManager> Action { get; set; }
 
         private WorkContainer() { }
         /// <summary>
@@ -22,7 +22,7 @@ namespace ThreadWorker.Code
         /// </summary>
         /// <param name="title">The title of the task.</param>
         /// <param name="action">Delegate with the body of the task.</param>
-        public WorkContainer(string title, Action<WorkManager, TokenManager> action)
+        public WorkContainer(string title, Action<WorkManager> action)
         {
             Title = title;
             Action = action;

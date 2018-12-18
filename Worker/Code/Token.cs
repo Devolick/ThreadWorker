@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace ThreadWorker.Code
@@ -8,14 +10,58 @@ namespace ThreadWorker.Code
     /// </summary>
     public sealed class Token
     {
-        /// <summary>
-        /// Flexible class for data entry.
-        /// </summary>
-        public Context Context { get; set; }
+        private LinkedList<KeyValuePair<string, object>> values;
 
         /// <summary>
         /// Ctor
         /// </summary>
-        public Token() { }
+        public Token()
+        {
+            values = new LinkedList<KeyValuePair<string, object>>();
+        }
+
+        /// <summary>
+        /// Find out if there is an entry with the specified name. Use the nameof(workName) operator.
+        /// </summary>
+        public bool HasValue(string workName)
+        {
+            return values.Any(a => a.Key == workName);
+        }
+
+        /// <summary>
+        /// Adds task to the list of values. Use the nameof(workName) operator.
+        /// </summary>
+        public void AppendValue(string workName, object value)
+        {
+            if (values.Any(a => a.Key == workName))
+                throw new DuplicateWaitObjectException("This page is already in the list.");
+
+            values.AddLast(new KeyValuePair<string, object>(workName, value));
+        }
+
+        /// <summary>
+        /// Removes a task from the list of values. Use the nameof(workName) operator.
+        /// </summary>
+        public void RemoveValue(string workName)
+        {
+            if (values.Any(a => a.Key == workName))
+            {
+                KeyValuePair<string, object> value =
+                    values.First(f => f.Key == workName);
+                values.Remove(value);
+            }
+        }
+
+        /// <summary>
+        /// Gets a task from a list of values. Use the nameof(workName) operator.
+        /// </summary>
+        public T GetValue<T>(string workName)
+            where T : class
+        {
+            if (values.Any(a => a.Key == workName))
+                return (T)values.First(f => f.Key == workName).Value;
+
+            return null;
+        }
     }
 }
