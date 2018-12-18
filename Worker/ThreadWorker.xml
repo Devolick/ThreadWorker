@@ -59,49 +59,9 @@
             True if tasks had stoped.
             </summary>
         </member>
-        <member name="T:ThreadWorker.Code.Context">
-            <summary>
-            Class content entries.
-            </summary>
-        </member>
-        <member name="M:ThreadWorker.Code.Context.#ctor">
-            <summary>
-            Ctor
-            </summary>
-        </member>
-        <member name="M:ThreadWorker.Code.Context.HasValue(System.String)">
-            <summary>
-            Find out if there is an entry with the specified name. Use the nameof(workName) operator.
-            </summary>
-        </member>
-        <member name="M:ThreadWorker.Code.Context.AppendValue(System.String,System.Object)">
-            <summary>
-            Adds task to the list of values. Use the nameof(workName) operator.
-            </summary>
-        </member>
-        <member name="M:ThreadWorker.Code.Context.RemoveValue(System.String)">
-            <summary>
-            Removes a task from the list of values. Use the nameof(workName) operator.
-            </summary>
-        </member>
-        <member name="M:ThreadWorker.Code.Context.GetValue``1(System.String)">
-            <summary>
-            Gets a task from a list of values. Use the nameof(workName) operator.
-            </summary>
-        </member>
         <member name="T:ThreadWorker.Code.Token">
             <summary>
             Class for transfer between tasks. Used as a notebook in case of an error.
-            </summary>
-        </member>
-        <member name="P:ThreadWorker.Code.Token.TaskIndex">
-            <summary>
-            Indicates the index of the current task.
-            </summary>
-        </member>
-        <member name="P:ThreadWorker.Code.Token.Context">
-            <summary>
-            Flexible class for data entry.
             </summary>
         </member>
         <member name="M:ThreadWorker.Code.Token.#ctor">
@@ -109,19 +69,24 @@
             Ctor
             </summary>
         </member>
-        <member name="T:ThreadWorker.Code.TokenManager">
+        <member name="M:ThreadWorker.Code.Token.HasValue(System.String)">
             <summary>
-            Shell to transfer data token.
+            Find out if there is an entry with the specified name. Use the nameof(workName) operator.
             </summary>
         </member>
-        <member name="P:ThreadWorker.Code.TokenManager.TaskIndex">
+        <member name="M:ThreadWorker.Code.Token.AppendValue(System.String,System.Object)">
             <summary>
-            Indicates the index of the current task.
+            Adds task to the list of values. Use the nameof(workName) operator.
             </summary>
         </member>
-        <member name="P:ThreadWorker.Code.TokenManager.Context">
+        <member name="M:ThreadWorker.Code.Token.RemoveValue(System.String)">
             <summary>
-            Flexible class for data entry.
+            Removes a task from the list of values. Use the nameof(workName) operator.
+            </summary>
+        </member>
+        <member name="M:ThreadWorker.Code.Token.GetValue``1(System.String)">
+            <summary>
+            Gets a task from a list of values. Use the nameof(workName) operator.
             </summary>
         </member>
         <member name="T:ThreadWorker.Code.WorkContainer">
@@ -139,7 +104,7 @@
             Delegate with the body of the task.
             </summary>
         </member>
-        <member name="M:ThreadWorker.Code.WorkContainer.#ctor(System.String,System.Action{ThreadWorker.Code.WorkManager,ThreadWorker.Code.TokenManager})">
+        <member name="M:ThreadWorker.Code.WorkContainer.#ctor(System.String,System.Action{ThreadWorker.Code.WorkManager})">
             <summary>
             Ctor
             </summary>
@@ -164,6 +129,11 @@
         <member name="P:ThreadWorker.Code.WorkManager.Complete">
             <summary>
             Indicates if the thread has finished running.
+            </summary>
+        </member>
+        <member name="P:ThreadWorker.Code.WorkManager.Token">
+            <summary>
+            Flexible class for data entry.
             </summary>
         </member>
         <member name="M:ThreadWorker.Code.WorkManager.PauseCycle">

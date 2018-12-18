@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>F:\Development\C#\Standard\ThreadWorker\ThreadWorker\Worker\ThreadWorker.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\ddym\Documents\ThinkCompass\Dzmitry\Tasks\DataTransfer\ThreadWorker\Worker\ThreadWorker.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -99,6 +99,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Worker\ThreadWorker.csproj">
       <Project>{436c686e-4eee-4947-8cee-5905ff62a22f}</Project>
       <Name>ThreadWorker</Name>

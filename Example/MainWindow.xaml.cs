@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Windows;
+using ThreadWorker;
 using ThreadWorker.Code;
 
 namespace Example
@@ -9,7 +10,7 @@ namespace Example
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ThreadWorker.Worker worker;
+        private Worker worker;
 
         public MainWindow()
         {
